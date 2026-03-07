@@ -44,13 +44,15 @@ class MapWidget(Widget):
     def __init__(self, game_state=None, **kwargs):
         super().__init__(**kwargs)
         self.game_state = game_state
-        self.viewport_width = 60
-        self.viewport_height = 20
 
     def render_line(self, y: int) -> Strip:
         """Render a single line of the map."""
+        # Use actual widget size for viewport (dynamic)
+        viewport_width = self.size.width
+        viewport_height = self.size.height
+
         if not self.game_state:
-            return Strip([Segment(" " * self.viewport_width)])
+            return Strip([Segment(" " * viewport_width)])
 
         player = self.game_state.player
         game_map = self.game_state.dungeon_map
@@ -61,11 +63,11 @@ class MapWidget(Widget):
 
         # Check if line is out of bounds
         if world_y >= game_map.height:
-            return Strip([Segment(" " * self.viewport_width)])
+            return Strip([Segment(" " * viewport_width)])
 
         # Render each cell in the line
         segments = []
-        for x in range(self.viewport_width):
+        for x in range(viewport_width):
             world_x = start_x + x
             segments.append(self._render_cell(world_x, world_y, player, game_map))
 
@@ -73,10 +75,13 @@ class MapWidget(Widget):
 
     def _get_viewport_offset(self, player, game_map):
         """Calculate viewport offset centered on player."""
-        start_x = max(0, min(player.x - self.viewport_width // 2,
-                            game_map.width - self.viewport_width))
-        start_y = max(0, min(player.y - self.viewport_height // 2,
-                            game_map.height - self.viewport_height))
+        viewport_width = self.size.width
+        viewport_height = self.size.height
+
+        start_x = max(0, min(player.x - viewport_width // 2,
+                            game_map.width - viewport_width))
+        start_y = max(0, min(player.y - viewport_height // 2,
+                            game_map.height - viewport_height))
         return start_x, start_y
 
     def _render_cell(self, world_x, world_y, player, game_map):
@@ -122,11 +127,3 @@ class MapWidget(Widget):
         # Convert TileType enum to string for lookup
         type_name = tile_type.name.lower()
         return TERRAIN_STYLES.get(type_name, Style(color="cyan"))
-
-    def get_content_height(self, container: Size, viewport: Size, width: int) -> int:
-        """Get the height needed for the content."""
-        return self.viewport_height
-
-    def get_content_width(self, container: Size, viewport: Size) -> int:
-        """Get the width needed for the content."""
-        return self.viewport_width

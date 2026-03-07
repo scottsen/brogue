@@ -9,6 +9,9 @@ from textual.binding import Binding
 class ChatInput(Container):
     """Modal chat input widget that overlays the game screen."""
 
+    # Prevent this container from receiving focus when hidden
+    can_focus = False
+
     DEFAULT_CSS = """
     ChatInput {
         display: none;
@@ -64,13 +67,18 @@ class ChatInput(Container):
         """Compose the chat input UI."""
         with Container(classes="chat-container"):
             yield Static("Chat Message", classes="chat-label")
+            # Create Input with focus DISABLED by default (will enable when shown)
             self._input = Input(placeholder="Type your message...")
+            self._input.can_focus = False
             yield self._input
             yield Static("Press Enter to send, Esc to cancel", classes="chat-help")
 
     def on_mount(self) -> None:
         """When mounted, hide by default."""
         self.remove_class("visible")
+        # Disable focus on the input when hidden
+        if self._input:
+            self._input.can_focus = False
 
     def show(self, on_submit=None):
         """Show the chat input and focus it.
@@ -81,6 +89,7 @@ class ChatInput(Container):
         self._on_submit_callback = on_submit
         self.add_class("visible")
         if self._input:
+            self._input.can_focus = True  # Enable focus when showing
             self._input.value = ""
             self._input.focus()
 
@@ -90,6 +99,7 @@ class ChatInput(Container):
         if self._input:
             self._input.value = ""
             self._input.blur()
+            self._input.can_focus = False  # Disable focus when hiding
 
     def action_cancel(self):
         """Cancel chat input (Escape key)."""

@@ -124,20 +124,20 @@ class VeinbornApp(App):
 
     BINDINGS = [
         # Arrow keys
-        Binding("up", "move(0,-1)", "Move Up", show=False),
-        Binding("down", "move(0,1)", "Move Down", show=False),
-        Binding("left", "move(-1,0)", "Move Left", show=False),
-        Binding("right", "move(1,0)", "Move Right", show=False),
+        Binding("up", "move_up", "Move Up", show=False),
+        Binding("down", "move_down", "Move Down", show=False),
+        Binding("left", "move_left", "Move Left", show=False),
+        Binding("right", "move_right", "Move Right", show=False),
         # Vim keys
-        Binding("k", "move(0,-1)", "Move Up", show=False),
-        Binding("j", "move(0,1)", "Move Down", show=False),
-        Binding("h", "move(-1,0)", "Move Left", show=False),
-        Binding("l", "move(1,0)", "Move Right", show=False),
+        Binding("k", "move_up", "Move Up", show=False),
+        Binding("j", "move_down", "Move Down", show=False),
+        Binding("h", "move_left", "Move Left", show=False),
+        Binding("l", "move_right", "Move Right", show=False),
         # Diagonal movement
-        Binding("y", "move(-1,-1)", "Move Up-Left", show=False),
-        Binding("u", "move(1,-1)", "Move Up-Right", show=False),
-        Binding("b", "move(-1,1)", "Move Down-Left", show=False),
-        Binding("n", "move(1,1)", "Move Down-Right", show=False),
+        Binding("y", "move_up_left", "Move Up-Left", show=False),
+        Binding("u", "move_up_right", "Move Up-Right", show=False),
+        Binding("b", "move_down_left", "Move Down-Left", show=False),
+        Binding("n", "move_down_right", "Move Down-Right", show=False),
         # Mining actions
         Binding("s", "survey", "Survey Ore", show=True),
         # Inventory and inspection
@@ -257,7 +257,7 @@ class VeinbornApp(App):
         yield self.sidebar  # Top of right panel (stacks from bottom up)
         yield self.map_widget
         yield self.message_log
-        yield self.chat_input  # Chat input overlays on top
+        yield self.chat_input  # Chat input overlays on top (focus disabled until shown)
         logger.info("compose() complete")
 
     async def action_move(self, dx: int, dy: int) -> None:
@@ -270,6 +270,39 @@ class VeinbornApp(App):
 
         # Update all widgets (async)
         self.refresh_ui()
+
+    # Individual movement actions (workaround for Textual negative number parsing bug)
+    async def action_move_up(self) -> None:
+        """Move up."""
+        await self.action_move(0, -1)
+
+    async def action_move_down(self) -> None:
+        """Move down."""
+        await self.action_move(0, 1)
+
+    async def action_move_left(self) -> None:
+        """Move left."""
+        await self.action_move(-1, 0)
+
+    async def action_move_right(self) -> None:
+        """Move right."""
+        await self.action_move(1, 0)
+
+    async def action_move_up_left(self) -> None:
+        """Move up-left (diagonal)."""
+        await self.action_move(-1, -1)
+
+    async def action_move_up_right(self) -> None:
+        """Move up-right (diagonal)."""
+        await self.action_move(1, -1)
+
+    async def action_move_down_left(self) -> None:
+        """Move down-left (diagonal)."""
+        await self.action_move(-1, 1)
+
+    async def action_move_down_right(self) -> None:
+        """Move down-right (diagonal)."""
+        await self.action_move(1, 1)
 
     async def action_survey(self) -> None:
         """Survey adjacent ore vein (async Textual handler)."""

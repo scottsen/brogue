@@ -22,7 +22,8 @@ def setup_logging(log_dir: Path = None):
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
             logging.FileHandler(log_dir / 'veinborn.log'),
-            logging.StreamHandler()  # Also print to console
+            # StreamHandler removed - logs only go to file in normal mode
+            # (debug mode in scripts/run_debug.py still shows console output)
         ]
     )
 
