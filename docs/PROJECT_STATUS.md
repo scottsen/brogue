@@ -1,6 +1,8 @@
 # Veinborn Project Status Report
 
-**Last Updated:** 2026-01-13
+> ⚠️ **This document is under revalidation (2026-04-17).** Claims below date from 2026-01-13 and are known to be wrong in several places — especially "1063 tests passing / 100%" and "Multiplayer Phase 2 complete." Evidence: `docs/PROJECT_REVIEW_2026-04-17.md`. Current reality: SP core ~802 unit tests pass (2 test-drift failures now fixed); MP has 7+ server test failures plus async hangs, `GameSession` misuses `GameState` instead of `GameContext`, and `WaitAction` module is missing. Read `PROJECT_REVIEW_2026-04-17.md` for authoritative status until this doc is rewritten.
+
+**Last Updated:** 2026-01-13 (stale — see banner above)
 **Status:** ✅ MVP Complete + Multiplayer Phase 2 Complete + Phase 3 Refactoring In Progress 🎉
 
 ---

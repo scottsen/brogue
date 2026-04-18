@@ -1,6 +1,6 @@
 # Veinborn Status Dashboard 🎯
 
-**Last Updated:** 2025-11-14
+**Last Updated:** 2026-04-17 (validated against code & tests; see `PROJECT_REVIEW_2026-04-17.md`)
 **Quick View:** One-page status overview
 
 ---
@@ -9,24 +9,13 @@
 
 | Category | Status | Details |
 |----------|--------|---------|
-| **Single-Player MVP** | ✅ **COMPLETE** | All systems working, 1063 tests passing |
-| **Multiplayer Phase 2** | ✅ **COMPLETE** | 2+ player co-op functional! |
-| **Test Health** | 🟢 **100%** | 858 passed, 2 skipped, 0 failed |
-| **Current Phase** | 🔨 **Dual-Track** | Single-player polish + Multiplayer Phase 3 |
-| **Playability** | ✅ **PLAYABLE** | Both modes ready for testing |
+| **Single-Player core** | 🟢 Mostly healthy | ~800/802 unit tests pass; 2 test-drift failures in `test_action_factory.py` (new 8th action not added to expectations) |
+| **Multiplayer** | 🔴 Experimental / broken | 7+ server test failures; reconnection/websocket_server tests hang. `GameSession` runs against raw `GameState` (should be `GameContext`); missing `WaitAction` module. |
+| **Test Health** | 🟡 Partial | 1063 collected. SP ~800 pass / 2 fail. MP ~95 pass / 7 fail plus hangs in reconnection & websocket_server. Not 100%. |
+| **Current Phase** | 🛠️ Restore trust | Fix stale docs, repair MP correctness, then resume feature work |
+| **Playability** | ✅ SP playable / ❌ MP not recommended | |
 
----
-
-## 📊 Project Health Metrics
-
-```
-Test Coverage:     1063 (100%) ████████████████████░
-Single-Player:     Complete       ████████████████████
-Multiplayer:       Phase 2 Done   ███████████████░░░░░
-Content:           19 monsters    ██████████████████░░
-                   23 recipes     ██████████████████░░
-Documentation:     Updated        ████████████████████
-```
+See `docs/PROJECT_REVIEW_2026-04-17.md` for full evidence.
 
 **Codebase Stats:**
 - **114+ Python files**
@@ -157,7 +146,7 @@ python3 src/server/test_client.py
 | **This file** | At-a-glance status | 2 min |
 | [PROJECT_STATUS.md](PROJECT_STATUS.md) | Comprehensive status | 10 min |
 | [MVP_CURRENT_FOCUS.md](MVP_CURRENT_FOCUS.md) | Current priorities | 5 min |
-| [MULTIPLAYER_PROGRESS.md](../MULTIPLAYER_PROGRESS.md) | Multiplayer details | 8 min |
+| [design/MULTIPLAYER_DESIGN_2025.md](design/MULTIPLAYER_DESIGN_2025.md) | Multiplayer design | 30 min |
 | [README.md](../README.md) | Project overview | 5 min |
 | [START_HERE.md](START_HERE.md) | Developer onboarding | 15 min |
 
@@ -224,7 +213,7 @@ python3 src/server/test_client.py
 
 ---
 
-**🎯 TL;DR:** Single-player MVP complete (1063 tests). Multiplayer Phase 2 complete (2+ player co-op working!). Now in dual-track Phase 3: polish single-player + test/refine multiplayer. Both modes playable!
+**🎯 TL;DR (2026-04-17):** Single-player core is healthy and playable (2 minor test-drift failures). Multiplayer Phase 2 is NOT complete — `GameSession` is misaligned with the action contract, `WaitAction` module is missing, and multiple async server tests fail or hang. Focus is on restoring doc accuracy and MP correctness before continuing feature work.
 
 ---
 

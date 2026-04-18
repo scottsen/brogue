@@ -15,6 +15,7 @@ simpleeval>=1.0.0          # Safe expression evaluation for crafting formulas
 # ===== Development & Testing =====
 pytest>=7.4.0
 pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
 
 # ===== Development Tools =====
 textual-dev>=1.0.0         # Textual development tools

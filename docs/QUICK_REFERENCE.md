@@ -17,22 +17,24 @@
 - Hold `Shift`: Fast movement
 
 **Actions:**
-- Walk into monster: Attack
-- `s`: Survey ore (check properties)
-- `m`: Mine ore (takes 3-5 turns)
-- `c`: Craft (when at forge)
-- `e`: Equip/unequip items
+- Walk into monster: Attack (bump-to-attack)
+- Walk into ore vein: Mine (bump-to-mine, takes 3-5 turns)
+- `s`: Survey nearby ore (check properties)
+- `g`: Pick up items
 - `i`: View inventory
+- `w`: Wield/wear (equip) — `W` cycles equipment
+- `:`: Look at ground
+- `.` or `space`: Wait / pass turn
+- `c` or `enter`: Chat (multiplayer)
 - `>`: Descend stairs
-- `<`: Ascend stairs
-- `R`: Restart game
-- `Q`: Quit
+- `S` / `L`: Save / Load
+- `r`: Restart — `q`: Quit
 
 **Pro Tips:**
 - Survey before mining (check if ore is worth it!)
 - Clear monsters before mining (you're vulnerable!)
 - Purity 80+ ore saves to Legacy Vault on death
-- Equip crafted items with `e` key
+- Wield crafted items with `w` — crafting happens automatically on forge tiles
 
 ---
 
@@ -295,7 +297,8 @@ stats.print_stats(20)  # Top 20 functions
 **Start Here:**
 - `README.md` - Project overview
 - `docs/START_HERE.md` - 15-minute onboarding
-- `docs/PROJECT_STATUS.md` - Current state (100% accurate)
+- `docs/PROJECT_STATUS.md` - Current state (under revalidation)
+- `docs/PROJECT_REVIEW_2026-04-17.md` - Trust-restore audit (current)
 
 **Development:**
 - `docs/MVP_CURRENT_FOCUS.md` - What to build now
@@ -306,9 +309,8 @@ stats.print_stats(20)  # Top 20 functions
 - `docs/VEINBORN_CONSOLIDATED_DESIGN.md` - Game design vision
 - `docs/systems/` - System-specific designs
 
-**Future:**
-- `docs/future-multiplayer/` - Phase 2 planning (not current)
-- `docs/Archive/` - ❌ Outdated docs (don't read)
+**Multiplayer:**
+- `docs/design/MULTIPLAYER_DESIGN_2025.md` - Current MP design
 
 ---
 

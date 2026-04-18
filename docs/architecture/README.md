@@ -1,7 +1,9 @@
 # Veinborn Architecture Documentation
 
-**Last Updated:** 2026-01-13 (consolidated docs from archive)
-**Current Phase:** MVP (Single-Player)
+**Last Updated:** 2026-04-17
+**Current Phase:** Single-player feature-complete; multiplayer experimental
+
+> ⚠️ **Stale references ahead.** References below to `/docs/future-multiplayer/` are defunct — that directory was archived to `~/Archive/veinborn/docs-archive-2026-01-13/` (machine-local, not in this repo). The current, in-repo multiplayer design lives at **`docs/design/MULTIPLAYER_DESIGN_2025.md`**. When following a `/docs/future-multiplayer/...` link, use that file instead. See `docs/PROJECT_REVIEW_2026-04-17.md` for the full audit.
 
 ---
 

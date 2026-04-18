@@ -1572,10 +1572,8 @@ Let's build it. 🎮⚔️
 
 ## 📚 References
 
-- Previous design: `~/Archive/veinborn/docs-archive-2026-01-13/future-multiplayer/VEINBORN_MULTIPLAYER_DESIGN.md`
-- Turn system: `~/Archive/veinborn/docs-archive-2026-01-13/future-multiplayer/VEINBORN_TURN_SYSTEM.md`
-- NATS infra: `~/Archive/veinborn/docs-archive-2026-01-13/future-multiplayer/VEINBORN_NATS_INFRASTRUCTURE.md`
-- Current codebase: `/home/user/veinborn/src/core/`
+- Historical design docs (machine-local only, not in this repo): previously at `~/Archive/veinborn/docs-archive-2026-01-13/future-multiplayer/` covering earlier multiplayer design, turn system, and NATS infrastructure. Do not link to `~/Archive` paths from any active in-repo doc.
+- Current codebase: `src/core/` and `src/server/`
 
 ---
 

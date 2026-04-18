@@ -9,6 +9,7 @@ Tests the chat functionality added in Phase 3:
 - Message serialization/deserialization
 """
 import pytest
+import pytest_asyncio
 from unittest.mock import Mock, AsyncMock, patch
 from server.messages import Message, MessageType
 from server.websocket_server import VeinbornServer
@@ -46,7 +47,7 @@ def mock_websocket():
     return ws
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def server_with_players(auth_manager):
     """Create a server with authenticated players."""
     server = VeinbornServer()

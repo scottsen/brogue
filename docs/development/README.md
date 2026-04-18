@@ -20,8 +20,7 @@ This directory contains guides for testing, debugging, and development workflows
 - **[TEXTUAL_QUICKSTART.md](TEXTUAL_QUICKSTART.md)** - Getting started with Textual UI
 
 ### Code Quality
-- **[CODE_REVIEW_STANDARDS.md](CODE_REVIEW_STANDARDS.md)** - Code review and quality standards
-- **[CODE_REVIEW_AND_REFACTORING_PLAN.md](CODE_REVIEW_AND_REFACTORING_PLAN.md)** - Refactoring guidelines and plans
+- **[CODE_REVIEW_STANDARDS.md](CODE_REVIEW_STANDARDS.md)** - Code review and quality standards (historical refactoring plan archived under `docs/.archived/`)
 
 ## Related Documentation
 

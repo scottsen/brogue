@@ -32,12 +32,13 @@
 | Document | Purpose | Audience |
 |----------|---------|----------|
 | **[STATUS_DASHBOARD.md](STATUS_DASHBOARD.md)** ⭐ | 🎯 **One-page at-a-glance status** (2 min read) | Everyone |
-| **[PROJECT_STATUS.md](PROJECT_STATUS.md)** | ✅ Comprehensive status report (1063 tests, 100% accurate) | Everyone |
+| **[PROJECT_STATUS.md](PROJECT_STATUS.md)** | Comprehensive status (under revalidation — see PROJECT_REVIEW_2026-04-17) | Everyone |
+| **[PROJECT_REVIEW_2026-04-17.md](PROJECT_REVIEW_2026-04-17.md)** | ⭐ Current trust-restore review: test/MP/docs audit | Everyone |
 | **[MVP_CURRENT_FOCUS.md](MVP_CURRENT_FOCUS.md)** | 🎯 Current priorities and next steps | Developers |
 | **[MVP_ROADMAP.md](MVP_ROADMAP.md)** | 📋 High-level roadmap | Project managers |
 
 **Quick status check:** → **STATUS_DASHBOARD.md** (2 min)
-**Detailed status:** → **PROJECT_STATUS.md** (10 min, 100% accurate)
+**Detailed status:** → **PROJECT_STATUS.md** (under revalidation) and **PROJECT_REVIEW_2026-04-17.md** (current audit)
 
 ---
 
@@ -84,14 +85,7 @@
 
 ## 🗃️ Archived Documentation
 
-⚠️ **Note:** The following documentation has been archived as it's either outdated or not part of the current MVP focus.
-
-| Directory | Contents | Location |
-|-----------|----------|----------|
-| **Archive/** | Old/conflicting designs, historical summaries | `~/Archive/veinborn/docs-archive-2026-01-13/Archive/` |
-| **future-multiplayer/** | Phase 2 multiplayer designs (16+ docs) | `~/Archive/veinborn/docs-archive-2026-01-13/future-multiplayer/` |
-
-**For current design:** Read [VEINBORN_CONSOLIDATED_DESIGN.md](VEINBORN_CONSOLIDATED_DESIGN.md) instead!
+Historical docs live outside the repo at `~/Archive/veinborn/docs-archive-2026-01-13/` (machine-local — not portable for contributors). Do not link from active docs. For current design, read [VEINBORN_CONSOLIDATED_DESIGN.md](VEINBORN_CONSOLIDATED_DESIGN.md).
 
 ---
 
@@ -129,7 +123,7 @@
 4. Ask if unsure!
 
 ### "Is X complete?"
-✅ Check [PROJECT_STATUS.md](PROJECT_STATUS.md) - it's 100% accurate!
+Check [PROJECT_REVIEW_2026-04-17.md](PROJECT_REVIEW_2026-04-17.md) first, then [PROJECT_STATUS.md](PROJECT_STATUS.md) (status claims are being revalidated).
 
 ---
 

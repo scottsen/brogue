@@ -38,17 +38,21 @@ b   n
 
 ### Actions
 - **Walk into a monster** = Attack it (bump-to-attack)
-- **s** = Survey ore (see its properties)
-- **m** = Mine ore (takes 3-5 turns, you're vulnerable!)
-- **c** = Craft equipment (when at a forge)
-- **e** = Equip/unequip items
+- **Walk into an ore vein** = Mine it (bump-to-mine; takes 3-5 turns, you're vulnerable!)
+- **s** = Survey nearby ore (see its properties)
+- **g** = Pick up items on your tile
 - **i** = View inventory
+- **w** = Wield/wear (equip) an item — **W** cycles equipment
+- **:** = Look at what's on the ground
+- **.** or **space** = Wait / pass turn
+- **c** or **enter** = Chat (multiplayer)
 - **>** = Descend stairs (when standing on them)
-- **R** = Restart game (after death)
-- **Q** = Quit to menu
+- **S** / **L** = Save / Load game
+- **r** = Restart (after death) — **q** = Quit
 
 ### Pro Tips
-- **Hold Shift + direction** = Fast movement (be careful!)
+- **Mining happens automatically** when you bump an ore vein — no key needed
+- **Crafting** happens contextually at forges (walk onto a forge tile)
 - **Wait (.)** = Skip your turn (let monsters come to you)
 
 ---
@@ -70,8 +74,8 @@ b   n
 ### Step 3: Mine Your First Ore (2 minutes)
 1. Find an **ore vein (◆)** in a wall
 2. Stand next to it
-3. Press **s** to survey it (see its properties)
-4. Press **m** to mine it
+3. Press **s** to survey nearby veins (see their properties)
+4. **Walk into the vein** to start mining (bump-to-mine)
 5. Wait 3-5 turns for mining to complete
 6. **Warning:** You can't move while mining!
 
@@ -87,12 +91,11 @@ Density       45  █████░░░░░  → Weight
 Higher numbers = better! Purity amplifies everything.
 
 ### Step 4: Craft Your First Weapon (1 minute)
-1. Find a **forge** (special room with anvil symbol)
-2. Stand in the forge room
-3. Press **c** to open crafting menu
-4. Select a recipe (try "Copper Sword")
-5. If you have the right ore, craft it!
-6. Press **e** to equip your new weapon
+1. Find a **forge** (yellow █ tile)
+2. Walk onto the forge to trigger the crafting menu
+3. Select a recipe (try "Copper Sword")
+4. If you have the right ore, craft it!
+5. Press **w** to wield your new weapon
 
 ### Step 5: Go Deeper
 1. Find the **stairs down (>)**
@@ -103,7 +106,7 @@ Higher numbers = better! Purity amplifies everything.
 ### Step 6: Die Gloriously
 1. Eventually, you'll die (it's a roguelike!)
 2. That's okay! You learn from each run
-3. Press **R** to restart
+3. Press **r** to restart
 
 ---
 
@@ -291,7 +294,7 @@ Both are valid! The vault helps you learn without being OP.
 
 ### ❌ Not Equipping Crafted Gear
 **Problem:** You craft a sword but forget to equip it (still using fists!)
-**Solution:** Press **e** after crafting to equip
+**Solution:** Press **w** after crafting to wield it
 
 ### ❌ Going Deeper Too Fast
 **Problem:** Floor 5 monsters oneshot you
@@ -330,15 +333,18 @@ Both are valid! The vault helps you learn without being OP.
 ## Keybind Reference Card
 
 ```
-MOVEMENT          COMBAT            MINING
-↑ k    y  u       Walk into enemy   s - Survey ore
-← h @ l →    @    = Attack          m - Mine ore
-↓ j    b  n                         c - Craft (at forge)
+MOVEMENT          COMBAT / MINING         ITEMS
+↑ k    y  u       Walk into enemy         i - Inventory
+← h @ l →         = Attack                w - Wield/equip
+↓ j    b  n       Walk into ore vein      W - Cycle equipment
+                  = Mine (bump-to-mine)   g - Pick up
+                  s - Survey ore          : - Look at ground
 
-INVENTORY         PROGRESSION       GAME
-i - Inventory     > - Descend       R - Restart
-e - Equip         < - Ascend        Q - Quit
-d - Drop                            ? - Help
+TURN / FLOW       PROGRESSION             GAME
+. or space        > - Descend stairs      S - Save   L - Load
+  = Wait / pass   (crafting happens       r - Restart
+c or enter        on forge tiles)         q - Quit
+  = Chat (MP)
 ```
 
 ---
@@ -374,9 +380,9 @@ reset    # Type this and press Enter
 Look for **◆** symbols in walls (not floors). They blend in!
 
 ### "Mining doesn't work"
-1. Stand **next to** the ore (adjacent, not on it)
-2. Press **s** to survey first
-3. Then press **m** to mine
+1. Stand **next to** the ore vein (adjacent, not on it)
+2. Press **s** to survey first (optional)
+3. **Walk into the vein** — mining starts automatically
 4. Wait for mining to finish (3-5 turns)
 
 ### "I can't craft anything"

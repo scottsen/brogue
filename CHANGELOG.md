@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed — Trust-Restore Pass (pajuzopo-0417)
+- **Test Collection**: Registered `asyncio` marker in `pytest.ini` + `pyproject.toml`; suite no longer errors under `--strict-markers`
+- **WaitAction**: Created missing `src/core/actions/wait_action.py` referenced by player binding and multiplayer disconnect fallback; 4 unit tests pass
+- **GameSession**: Action execution now wraps `GameState` in `GameContext` (API requirement) and reads `outcome.is_success` / `outcome.messages` (was using removed `.success` / `.message` fields)
+- **Async Fixtures**: `test_chat_system.py` now uses `@pytest_asyncio.fixture` (was `@pytest.fixture` on an async fixture, silently producing coroutine objects); 6 → 0 failures there
+- **ActionFactory Tests**: Updated for current 8-action registry including `pickup`
+- **Full suite**: now **1056 passing / 9 failing / 2 skipped** in ~60s (was hanging/broken); 9 remaining failures are pre-existing async-cleanup timeouts in reconnection/websocket tests, unrelated to the trust-restore scope
+
+### Changed — Documentation Accuracy
+- Replaced stale "1063 tests / 100% passing" claims across README, STATUS_DASHBOARD, INDEX, PROJECT_STATUS, START_HERE, MVP_ROADMAP, QUICK_REFERENCE, MVP_CURRENT_FOCUS, CONSTANTS_MIGRATION_PLAN, and all architecture doc banners with verified numbers (1056/9/2)
+- Removed dead references to `MULTIPLAYER_PROGRESS.md`, `docs/future-multiplayer/`, and `~/Archive` paths
+- Rewrote control docs (QUICKSTART.md, HOW_TO_PLAY.md, docs/QUICK_REFERENCE.md) to match live bindings: `s`=survey, `i`=inventory, `w`=wield, `g`=pickup, `.`/`space`=wait, `>`=descend, `c`=chat; mining is bump-to-mine, crafting is contextual on forge tiles
+
 ### Fixed
 - **Entity Rendering**: Forges now display correctly with '&' symbol (were invisible but blocking)
 - **Entity Rendering**: Items and NPCs now render properly instead of falling through to terrain

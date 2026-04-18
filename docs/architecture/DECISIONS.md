@@ -3,6 +3,8 @@
 **Last Updated**: 2025-10-23
 **Purpose**: Track major architectural decisions, their rationale, and current status
 
+> ⚠️ Links below to `/docs/future-multiplayer/` are defunct — that directory was archived to `~/Archive/veinborn/docs-archive-2026-01-13/`. Use **`docs/design/MULTIPLAYER_DESIGN_2025.md`** for the current in-repo multiplayer design. See `docs/PROJECT_REVIEW_2026-04-17.md`.
+
 ---
 
 ## How to Use This Document

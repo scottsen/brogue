@@ -117,11 +117,11 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 - Centralized formula system (damage, mining, crafting balance)
 - Bot equipment intelligence (stat-based upgrade detection)
 
-**📊 Project Health:**
-- **858/860 tests passing** (99.8% pass rate, comprehensive coverage)
-- **5 of 5 architectural improvements complete**
+**📊 Project Health (status honest as of 2026-04-17):**
+- **Single-player core**: ~800/802 unit tests passing; 2 test-drift failures in `test_action_factory.py` (expected 7 actions, registry now has 8)
+- **Multiplayer**: materially broken — 7+ server test failures, additional hangs in reconnection/websocket_server tests. Phase 2 should be treated as experimental, not complete. See `docs/PROJECT_REVIEW_2026-04-17.md`
+- **5 of 5 architectural improvements complete** (single-player)
 - **Lua-ready architecture** (5/5 extensibility score)
-- **Multiplayer Phase 2 complete** (2+ player co-op working!)
 
 **✅ Legacy Vault System (Complete):**
 - Meta-progression system (preserves purity 80+ ore across runs)
@@ -130,24 +130,16 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 
 **See:** [`docs/MVP_ROADMAP.md`](docs/MVP_ROADMAP.md)
 
-### 🚀 Phase 2: Multiplayer (COMPLETE! 🎉)
+### 🚀 Phase 2: Multiplayer (Experimental — not Complete)
 
-**Working Now (as of 2025-11-14):**
-- ✅ 2+ player co-op (WebSocket server functional!)
-- ✅ "4 actions per round, anyone can take them" (implemented!)
-- ✅ Shared dungeon generation (distributed player spawning)
-- ✅ Monster AI integration (nearest-player targeting)
-- ✅ Turn system working (real-time synchronization)
-- ✅ Test client for validation
+Prior doc claimed "Phase 2 complete (2+ player co-op working!)". Current code does not support that claim:
+- `GameSession.process_action()` executes actions against a raw `GameState` instead of the `GameContext` the action API requires (`src/server/game_session.py:396`)
+- The disconnected-player fallback imports `core.actions.wait_action.WaitAction`, which does not exist (`src/server/game_session.py:444`)
+- Multiple async server tests fail or hang
 
-**Phase 3 (Next):**
-- Extended testing (30+ min co-op sessions)
-- Combat balance for multiplayer
-- Class selection on join
-- Personal loot system
-- Boss fights designed for co-op
+Treat multiplayer as experimental until those are repaired and the server test suite is green.
 
-**See:** [`MULTIPLAYER_PROGRESS.md`](MULTIPLAYER_PROGRESS.md) and [`docs/design/MULTIPLAYER_DESIGN_2025.md`](docs/design/MULTIPLAYER_DESIGN_2025.md)
+**See:** [`docs/design/MULTIPLAYER_DESIGN_2025.md`](docs/design/MULTIPLAYER_DESIGN_2025.md) and [`docs/PROJECT_REVIEW_2026-04-17.md`](docs/PROJECT_REVIEW_2026-04-17.md)
 
 ---
 
@@ -195,7 +187,7 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 |----------|------|---------|
 | [`docs/STATUS_DASHBOARD.md`](docs/STATUS_DASHBOARD.md) ⭐ | 2 min | **At-a-glance status** (read this first!) |
 | [`docs/START_HERE.md`](docs/START_HERE.md) | 15 min | New developer onboarding |
-| [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) | 10 min | Comprehensive status report (100% accurate) |
+| [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) | 10 min | Comprehensive status report (under revalidation — see PROJECT_REVIEW_2026-04-17) |
 | [`docs/MVP_CURRENT_FOCUS.md`](docs/MVP_CURRENT_FOCUS.md) | 5 min | What to build right now |
 | [`docs/VEINBORN_CONSOLIDATED_DESIGN.md`](docs/VEINBORN_CONSOLIDATED_DESIGN.md) | 30 min | Master game design vision |
 
@@ -207,7 +199,7 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 
 **Current Work:**
 - [`docs/STATUS_DASHBOARD.md`](docs/STATUS_DASHBOARD.md) - ⭐ **At-a-glance status** (2 min, read this first!)
-- [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) - Comprehensive status (100% accurate!)
+- [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) - Comprehensive status (under revalidation)
 - [`docs/MVP_CURRENT_FOCUS.md`](docs/MVP_CURRENT_FOCUS.md) - Current priorities
 - [`docs/MVP_ROADMAP.md`](docs/MVP_ROADMAP.md) - High-level roadmap
 
@@ -222,9 +214,6 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
   - [`ANALYSIS_QUICK_REFERENCE.md`](docs/architecture/ANALYSIS_QUICK_REFERENCE.md) - Quick reference & scorecards
   - [`README_ANALYSIS.md`](docs/architecture/README_ANALYSIS.md) - Architecture documentation index
 - [`docs/CONTENT_CREATION.md`](docs/CONTENT_CREATION.md) - Add monsters/items/recipes
-
-**Future Plans:**
-- [`docs/future-multiplayer/`](docs/future-multiplayer/) - Phase 2 multiplayer design (not current!)
 
 **Full Index:**
 - [`docs/INDEX.md`](docs/INDEX.md) - **Complete documentation map** 🗺️
@@ -260,9 +249,7 @@ veinborn/
 │   ├── VEINBORN_CONSOLIDATED_DESIGN.md  # Master design
 │   ├── development/        # Testing, debugging, dev guides
 │   ├── architecture/       # Architecture & technical design
-│   ├── systems/            # System-specific docs
-│   ├── future-multiplayer/ # Phase 2 design
-│   └── Archive/            # ❌ Historical docs
+│   └── systems/            # System-specific docs
 │
 ├── scripts/
 │   ├── run_debug.py        # Debug mode

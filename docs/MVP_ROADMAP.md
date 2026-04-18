@@ -46,7 +46,7 @@
 | **Loot** | ✅ Complete | 3 | `src/core/loot.py` |
 | **Legacy Vault** | ✅ Complete | 47 | `src/core/legacy.py` |
 
-**Total:** 1063 tests passing (100% pass rate, 2 skipped)
+**Total (verified 2026-04-17):** 1056 passing / 9 failing / 2 skipped. All 9 failures are in async multiplayer server code (reconnection cleanup + websocket timeout); single-player is clean.
 
 **Deliverable:** Complete single-player game with all MVP systems ✅
 
@@ -93,9 +93,7 @@
 - Party Legacy Vault
 - Boss fights designed for 4 players
 
-**See:** [future-multiplayer/](future-multiplayer/) directory for complete design
-
-⚠️ **Not building multiplayer yet!** Focus on single-player polish first.
+**See:** [design/MULTIPLAYER_DESIGN_2025.md](design/MULTIPLAYER_DESIGN_2025.md) for the current design.
 
 ---
 
@@ -106,7 +104,7 @@
 - [x] Character classes with progression
 - [x] Floor descent with difficulty scaling
 - [x] Meta-progression (Legacy Vault)
-- [x] 1063 tests passing (100%)
+- [x] 1056 tests passing / 9 failing / 2 skipped (verified 2026-04-17; failures are MP async only)
 - [x] Game is fully playable
 
 ### ✅ Phase 2 Multiplayer Complete (Achieved - 2025-11-14!)
@@ -188,7 +186,7 @@ src/
 ### Essential Reading
 - **[README.md](../README.md)** - Project overview (5 min)
 - **[START_HERE.md](START_HERE.md)** - Developer onboarding (15 min)
-- **[PROJECT_STATUS.md](PROJECT_STATUS.md)** - Comprehensive status (100% accurate)
+- **[PROJECT_STATUS.md](PROJECT_STATUS.md)** - Comprehensive status (under revalidation — see PROJECT_REVIEW_2026-04-17)
 - **[MVP_CURRENT_FOCUS.md](MVP_CURRENT_FOCUS.md)** - Current priorities
 
 ### Game Design
@@ -200,8 +198,8 @@ src/
 - **[architecture/](architecture/)** - Technical architecture
 - **[development/](development/)** - Testing, debugging guides
 
-### Future
-- **[future-multiplayer/](future-multiplayer/)** - Phase 4 design (not current!)
+### Current Audit
+- **[PROJECT_REVIEW_2026-04-17.md](PROJECT_REVIEW_2026-04-17.md)** - Trust-restore audit: test/MP/docs
 
 ---
 

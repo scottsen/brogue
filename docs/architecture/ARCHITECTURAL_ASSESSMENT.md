@@ -377,9 +377,9 @@ context.register_system('custom_system', my_system)
 
 ---
 
-## Current State (2026-01-13)
+## Current State (2026-04-17)
 
-**Test Coverage**: 1063 tests, 100% pass rate
+**Test Coverage**: 1067 tests collected; 1056 passing / 9 failing / 2 skipped (all failures in async MP server code)
 
 **Code Quality**:
 - Complexity violations resolved (Phase 1-3 refactoring)

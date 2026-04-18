@@ -5,6 +5,8 @@
 **Status:** Active
 **Last Updated:** 2025-10-24
 
+> ⚠️ Links below to `/docs/future-multiplayer/` are defunct — that directory was archived to `~/Archive/veinborn/docs-archive-2026-01-13/`. Async/integration/load-testing references there are no longer reachable in-repo. For multiplayer testing context, start from the existing server tests in `tests/unit/server/`.
+
 ---
 
 ## Overview

@@ -780,7 +780,7 @@ def test_craft_simple_sword():
 
 Reviewer should:
 - [ ] Read this document
-- [ ] Check [CODE_REVIEW_AND_REFACTORING_PLAN.md](CODE_REVIEW_AND_REFACTORING_PLAN.md) for known issues
+- [ ] Check git log / open issues for known refactoring work (historical plan archived under `docs/.archived/CODE_REVIEW_AND_REFACTORING_PLAN.md`)
 - [ ] Understand current phase (MVP Phase 1)
 
 ### 2. During Review
@@ -899,7 +899,7 @@ For detailed information, consult these source documents:
 
 **Context:**
 - [00_ARCHITECTURE_OVERVIEW.md](docs/architecture/00_ARCHITECTURE_OVERVIEW.md) - System architecture
-- [CODE_REVIEW_AND_REFACTORING_PLAN.md](CODE_REVIEW_AND_REFACTORING_PLAN.md) - Known issues
+- (Historical refactoring plan: `docs/.archived/CODE_REVIEW_AND_REFACTORING_PLAN.md`)
 - [PHASE_5_COMPLETE.md](PHASE_5_COMPLETE.md) - Current implementation status
 
 **Specific Systems:**

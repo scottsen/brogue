@@ -4,49 +4,31 @@
 
 ---
 
-## ⚠️ IMPORTANT: Current Development Phase
+## ⚠️ IMPORTANT: Current Development Phase (2026-04-17)
 
-**We have TWO active tracks:**
+This doc was rewritten as part of the 2026-04-17 trust-restore audit. For the full audit, read `docs/PROJECT_REVIEW_2026-04-17.md`.
 
-### Track A: Single-Player MVP (Polish Phase)
+### Track A: Single-Player (playable, healthy)
 
-**What we've COMPLETED:**
-- ✅ Single-player roguelike (fully playable!)
-- ✅ Mining and crafting systems (85+ tests passing)
-- ✅ Equipment system (10 tests passing)
-- ✅ Save/load system (26 tests passing)
-- ✅ Character classes (13 tests passing)
-- ✅ Floor progression (23 tests passing)
-- ✅ Legacy Vault system (47 tests passing)
-- ✅ Lua Event System (Phase 3 complete!)
-- **1063 tests passing (100%)!** (test suite expanded 24% since MVP)
+The single-player roguelike is feature-complete and playable: mining, crafting, equipment, save/load, character classes, floor progression, Legacy Vault, Lua event system. Current test numbers:
 
-**What we're building NOW:**
-- 🔨 Playtesting and balance tuning
-- 🔨 Content expansion (more monsters, recipes)
-- 🔨 Tutorial system
-- 🔨 Lua advanced features (AI behaviors, actions)
+- **1056 tests passing / 9 failing / 2 skipped** (suite of 1067 — collection clean, run clean, no hangs).
+- The 9 remaining failures are all in async multiplayer server code (reconnection cleanup, websocket timeout), not single-player.
 
-### Track B: Multiplayer (Phase 2 COMPLETE! 🎉)
+**Polish work in flight:**
+- Playtesting and balance tuning
+- Content expansion (more monsters, recipes)
+- Tutorial system
+- Lua advanced features (AI behaviors, actions)
 
-**What we've COMPLETED (as of 2025-11-14):**
-- ✅ **WebSocket server infrastructure** (11 new files, ~2,400 lines)
-- ✅ **2+ player co-op working** (connect, join, play together)
-- ✅ **Shared dungeon generation** (seeded for consistency)
-- ✅ **Distributed player spawning** (players start in different rooms)
-- ✅ **Monster AI integration** (monsters act after player rounds)
-- ✅ **Nearest-player targeting** (smart co-op AI)
-- ✅ **Turn system** ("4 actions per round, anyone can take them")
-- ✅ **Test client** for validation
+### Track B: Multiplayer (experimental)
 
-**What we're building NEXT (Multiplayer Phase 3):**
-- 🔨 Extended testing (30+ min co-op sessions)
-- 🔨 Combat balance for multiple players
-- 🔨 Delta compression (performance)
-- 🔨 Reconnection handling
+Earlier docs claimed "Phase 2 complete (2+ player co-op working)". That overstated reality. As of 2026-04-17:
 
-**For current status:** See `MVP_CURRENT_FOCUS.md` (updated 2025-11-14)
-**For multiplayer details:** See `MULTIPLAYER_PROGRESS.md`
+- Core alignment between the MP server and the single-player action API was broken. `GameSession.process_action()` executed actions against a raw `GameState` instead of the `GameContext` the action API requires, the ActionOutcome API calls used old attribute names (`.success`/`.message` instead of `.is_success`/`.messages`), and the disconnected-player fallback imported a `WaitAction` module that did not exist. **Repaired in this session** — `WaitAction` added, `GameSession` switched to `GameContext`, API calls corrected.
+- After repair: server tests run clean (no hangs, 159/166 pass). 4 reconnection timeout-cleanup tests and 2 websocket-server timeout tests still fail — those are separate async bugs, not the MP contract issues.
+- Treat multiplayer as experimental until the remaining async tests are green and a 30+ min co-op session has been validated end-to-end.
+
 **For multiplayer design:** See `docs/design/MULTIPLAYER_DESIGN_2025.md`
 
 ---
@@ -146,16 +128,13 @@ def generate_dungeon():
 
 ### 📋 Implementation Status
 
-**Current State:** MVP is feature-complete! 1063 tests passing (100%). Game is fully playable.
+**Current State:** Single-player MVP is feature-complete and playable. Test suite: 1056 passing / 9 failing / 2 skipped (verified 2026-04-17). All 9 failures are in async multiplayer server code, not single-player. Multiplayer is experimental — see Track B above.
 
-**What exists (ALL WORKING):**
-- ✅ Complete documentation (you're reading it!)
-- ✅ Game design finalized
-- ✅ Architecture implemented
-- ✅ Core game code (COMPLETE - 114+ Python files)
-- ✅ Comprehensive test suite (1063 passing tests, 100%)
-- ✅ Lua Event System (Phase 3 complete!)
-- ✅ Multiplayer (Phase 2 complete - 2+ player co-op working!)
+**What exists:**
+- ✅ Core game code (114+ Python files)
+- ✅ Test suite: 1056 passing (SP core clean)
+- ✅ Lua Event System
+- 🟡 Multiplayer: contract repaired 2026-04-17; 4 reconnection + 2 websocket-server async tests still failing
 
 **What's been built (MVP Phase 1 - COMPLETE):**
 - ✅ Core Game Loop: Turn-based movement and combat
@@ -221,7 +200,7 @@ def generate_dungeon():
 - Reconnection handling
 - Class selection on join
 
-**See:** `MULTIPLAYER_PROGRESS.md` and `docs/design/MULTIPLAYER_DESIGN_2025.md`
+**See:** `docs/design/MULTIPLAYER_DESIGN_2025.md` and `docs/PROJECT_REVIEW_2026-04-17.md`
 
 ---
 
@@ -538,19 +517,9 @@ Example:
 - Archive = dead ends
 - Read `VEINBORN_CONSOLIDATED_DESIGN.md` instead
 
-### Q: When does multiplayer happen?
+### Q: What's the multiplayer status?
 
-**A:** After MVP is complete (4-6 months from now)
-- MVP first: Mining, crafting, meta-progression
-- Then: Multiplayer infrastructure
-- See: `docs/future-multiplayer/`
-
-### Q: Can I work on multiplayer now?
-
-**A:** Please don't! Focus on MVP.
-- Multiplayer requires complete redesign (message-based)
-- Need working single-player first
-- MVP will inform multiplayer design
+**A:** Experimental. WebSocket server, session management, and co-op turn system all exist and mostly work. The 2026-04-17 audit repaired several contract bugs (see `docs/PROJECT_REVIEW_2026-04-17.md`). Remaining work: fix 4 reconnection cleanup tests and 2 websocket timeout tests, validate a 30+ min co-op session end-to-end.
 
 ### Q: How can I contribute?
 
@@ -571,9 +540,8 @@ Example:
 | **START_HERE.md** | Onboarding | Right now! |
 | **MVP_ROADMAP.md** | What to build | Before implementing |
 | **VEINBORN_CONSOLIDATED_DESIGN.md** | Game vision | Understanding "why" |
-| **architecture/** | Technical specs | Phase 2 (future) |
-| **future-multiplayer/** | MP design | Phase 2 (future) |
-| **Archive/** | ❌ Don't read | Never |
+| **architecture/** | Technical specs | When extending systems |
+| **design/MULTIPLAYER_DESIGN_2025.md** | MP design | Working on multiplayer |
 
 ### Code Map
 

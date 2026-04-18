@@ -83,12 +83,13 @@
 
 **Current state and plans:**
 
-→ **[PROJECT_STATUS.md](PROJECT_STATUS.md)** - Complete status (1063 tests, 100% pass) ⭐
+→ **[PROJECT_REVIEW_2026-04-17.md](PROJECT_REVIEW_2026-04-17.md)** - Current audit ⭐
+→ **[PROJECT_STATUS.md](PROJECT_STATUS.md)** - Comprehensive status (under revalidation)
 → **[STATUS_DASHBOARD.md](STATUS_DASHBOARD.md)** - Quick overview (2 min)
 → **[MVP_ROADMAP.md](MVP_ROADMAP.md)** - Future plans
 → **[VEINBORN_CONSOLIDATED_DESIGN.md](VEINBORN_CONSOLIDATED_DESIGN.md)** - Game vision
 
-**Source of Truth:** PROJECT_STATUS.md (always accurate, check here first!)
+**Source of Truth:** PROJECT_REVIEW_2026-04-17.md for current audited state; PROJECT_STATUS.md is being revalidated.
 
 ---
 
@@ -100,7 +101,7 @@
 |----------|--------|
 | **How do I run the game?** | [../QUICKSTART.md](../QUICKSTART.md) or `python3 run_textual.py` |
 | **What controls do I use?** | [QUICK_REFERENCE.md](QUICK_REFERENCE.md) |
-| **What's implemented?** | [PROJECT_STATUS.md](PROJECT_STATUS.md) (1063 tests ✅) |
+| **What's implemented?** | [PROJECT_REVIEW_2026-04-17.md](PROJECT_REVIEW_2026-04-17.md) — audited; SP clean, MP experimental |
 | **What's next?** | [MVP_CURRENT_FOCUS.md](MVP_CURRENT_FOCUS.md) |
 | **How do I add monsters?** | [CONTENT_CREATION.md](CONTENT_CREATION.md) |
 | **How do I mod with Lua?** | [LUA_API.md](LUA_API.md) |
@@ -112,7 +113,7 @@
 | Looking for... | Location |
 |----------------|----------|
 | **Game code** | `src/core/` |
-| **Tests** | `tests/` (1063 passing!) |
+| **Tests** | `tests/` (1056 passing / 9 failing / 2 skipped) |
 | **Data files** | `data/balance/`, `data/entities/` |
 | **Lua scripts** | `scripts/actions/`, `scripts/events/`, `scripts/ai/` |
 | **Documentation** | `docs/` (you are here) |
@@ -150,15 +151,10 @@ docs/
 
 ## 📝 Documentation Quality
 
-✅ **Accurate** - Major cleanup in Nov 2025, metrics verified
-✅ **Comprehensive** - 47 docs covering all aspects
-✅ **Current** - PROJECT_STATUS.md is source of truth (1063 tests, 100%)
-⚠️ **Some overlap** - Architecture docs have redundancy (consolidation planned)
+⚠️ **Under revalidation.** The 2026-04-17 audit (`PROJECT_REVIEW_2026-04-17.md`) found stale test-count claims, missing file references, outdated controls, and architecture docs still pointing at the non-existent `future-multiplayer/` directory. Trust-restore in progress: key docs updated, architecture pointers still need a consolidation pass.
 
 **Recent updates:**
-- 2025-11-06: Fixed test counts, Legacy Vault status, Lua Phase 3 status
-- 2025-11-14: Added multiplayer documentation
-- 2026-01-08: Added QUICKSTART.md, archived analysis artifacts
+- 2026-04-17: Trust-restore — fixed pytest asyncio marker, added WaitAction, aligned GameSession with GameContext, fixed chat fixture, updated headline docs with real test numbers
 
 ---
 

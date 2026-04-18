@@ -1,45 +1,56 @@
-# Veinborn MVP Architecture Overview
+# Veinborn Architecture Overview
 
 **Document Type:** Architecture Overview
-**Audience:** Developers implementing the MVP
-**Status:** Active - Current Development Phase
-**Last Updated:** 2025-10-24
+**Audience:** Developers working on the codebase
+**Status:** Current as of 2026-04-17 (pajuzopo-0417 trust-restore)
+**Last Updated:** 2026-04-17
 
 ---
 
-## ⚠️ IMPORTANT: This is MVP Architecture
+## What Veinborn Is Today
 
-**Current Phase:** MVP (Single-Player)
-**Timeline:** 4-6 weeks
-**Focus:** Get mining/crafting working in single-player
+A terminal roguelike (NetHack-style) in Python with:
+- **Single-player core** — mining, crafting, dungeon exploration (working, playable)
+- **Textual UI** — the live client (`src/ui/textual/app.py`)
+- **Multiplayer (in-progress)** — WebSocket-based server (`src/server/`) with `GameSession`, reconnection, chat; design in `docs/design/MULTIPLAYER_DESIGN_2025.md`
+- **Lua scripting** — event-driven modding (`src/scripting/`)
+- **YAML-driven content** — recipes, monsters, ores
 
-**NOT building yet:**
-- ❌ Multiplayer (Phase 2, 8-12 weeks out)
-- ❌ NATS message bus (Phase 2)
-- ❌ Microservices (Phase 2)
-- ❌ Lua scripting (Phase 3)
-- ❌ WebSocket clients (Phase 2)
+**Verified test state (2026-04-17):** 1056 passing / 9 failing / 2 skipped. Remaining failures are async-cleanup timeouts in reconnection/websocket tests.
 
-**For Phase 2 architecture:** See `/docs/future-multiplayer/`
+## Key Subsystems
+
+| Area | Home | Notes |
+|------|------|-------|
+| Game loop / turn engine | `src/core/game.py` | Owns event bus, Lua runtime, telemetry, floor manager, save-load |
+| Actions | `src/core/actions/` | `Action.validate(ctx) / execute(ctx) → ActionOutcome` — always passed a `GameContext`, not raw `GameState` |
+| Game state | `src/core/game_state.py` + `GameContext` facade | Actions see `GameContext`; `GameState` is the underlying store |
+| UI | `src/ui/textual/` | Bindings live in `app.py` — source of truth for keybinds |
+| Multiplayer server | `src/server/` | `GameSession`, `WebSocketServer`, reconnection, chat |
+| Scripting | `src/scripting/` | Lua event handlers |
+| Content | `data/` + `src/content/entity_loader.py` | Monsters, ores, recipes |
+
+## Canonical Design Docs
+
+- **Multiplayer:** `docs/design/MULTIPLAYER_DESIGN_2025.md`
+- **Testing patterns:** `docs/architecture/MVP_TESTING_GUIDE.md`
+- **Development guidelines:** `docs/architecture/MVP_DEVELOPMENT_GUIDELINES.md`
+- **Decision log:** `docs/architecture/DECISIONS.md`
+- **Recent audit:** `docs/PROJECT_REVIEW_2026-04-17.md`
+
+## Historical Context
+
+Earlier phases framed this as "MVP single-player only, multiplayer is future work." That framing is obsolete: multiplayer code is integrated and partially working. The section below retains original MVP-era descriptions of the core loop — still broadly accurate for the single-player path but predates the server layer, Lua runtime, and event bus that now ship in `Game`.
 
 ---
-
-## Executive Summary
-
-**Veinborn MVP** is a single-player terminal roguelike with mining and crafting systems.
-
-**Architecture Principles:**
-- **Simple Python Game Loop** - Direct function calls, no message bus
-- **Textual UI** - Terminal-based interface (already working)
-- **YAML-Driven Content** - Recipes, monsters defined in YAML
-- **Clean Code** - Type hints, clear separation of concerns
-- **Testable** - Unit tests for game logic
 
 **Technology Stack:**
 - Python 3.10+ (type hints, dataclasses)
 - Textual (terminal UI framework)
+- websockets (multiplayer transport)
+- lupa (Lua scripting)
 - PyYAML (content loading)
-- pytest (testing)
+- pytest + pytest-asyncio (testing)
 
 ---
 

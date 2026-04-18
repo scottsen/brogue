@@ -3,7 +3,9 @@
 **Document Type:** Development Standards (MVP Phase)
 **Audience:** Developers implementing MVP
 **Status:** Active
-**Last Updated:** 2026-01-13 (added advanced practices from operational excellence guidelines)
+**Last Updated:** 2026-01-13
+
+> ⚠️ Links below to `/docs/future-multiplayer/` are defunct — that directory was archived to `~/Archive/veinborn/docs-archive-2026-01-13/`. Use **`docs/design/MULTIPLAYER_DESIGN_2025.md`** for the current in-repo multiplayer design.
 
 ---
 

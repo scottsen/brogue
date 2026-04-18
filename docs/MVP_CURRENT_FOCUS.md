@@ -1,17 +1,15 @@
 # Veinborn MVP: Current Focus & Next Steps
 
-**Status:** ✅ **MVP FEATURE-COMPLETE** - Now in Polish & Content Phase
-**Phase:** MVP Polish + Lua Advanced Features + **Multiplayer Phase 2 COMPLETE** 🎉
-**Last Updated:** 2025-11-14
-**Test Status:** 1063 passing (100% pass rate, 2 skipped)
+**Status:** Single-player MVP feature-complete; multiplayer experimental (see `PROJECT_REVIEW_2026-04-17.md`)
+**Phase:** Trust-restore + MP stabilization + Polish
+**Last Updated:** 2026-04-17
+**Test Status:** 1067 collected, 1056 passing / 9 failing / 2 skipped (all failures in async MP server code)
 
 ---
 
-## ⚠️ IMPORTANT: Documentation Updated
+## ⚠️ Status Source of Truth
 
-**Previous versions of this document were severely outdated.**
-
-This document has been corrected to reflect the **actual state** of the project as of 2025-11-05. See `PROJECT_STATUS.md` for the comprehensive status report.
+This doc's top-line claims were validated against code and tests on 2026-04-17. For the full audit (test collection, MP bugs, controls drift, doc references), read `docs/PROJECT_REVIEW_2026-04-17.md`.
 
 ---
 
@@ -35,7 +33,7 @@ The single-player MVP is **feature-complete** with all core systems working:
 12. ✅ **Legacy Vault System** - Meta-progression (DONE - 47 tests passing)
 13. ✅ **Lua Event System** - Phase 3 complete (event handlers, achievements, quests)
 
-**Test Evidence:** 1063 tests passing (100% pass rate, 2 skipped)
+**Test Evidence (2026-04-17):** 1067 collected, 1056 passing / 9 failing / 2 skipped (all failures in async MP server code)
 
 ---
 
@@ -110,7 +108,7 @@ src/server/
    - Class selection on join
    - Personal loot system
 
-**See:** `MULTIPLAYER_PROGRESS.md` for full details
+**See:** `docs/design/MULTIPLAYER_DESIGN_2025.md` and `docs/PROJECT_REVIEW_2026-04-17.md`
 
 ---
 
@@ -147,9 +145,9 @@ python3 run_textual.py
 
 #### 2. Test Suite Status ✅ RESOLVED
 **Current Status:**
-- ✅ 1063 passing (100%)
-- ✅ 2 tests correctly skipped (Lua timeout tests - C-level execution limitation)
-- ✅ 0 tests failing
+- 1056 passing
+- 9 failing (all in async MP server code: reconnection cleanup + websocket timeout)
+- 2 correctly skipped (Lua timeout tests — C-level execution limitation)
 - ✅ All functional tests passing
 
 **Note:** The 2 skipped tests (`test_infinite_loop_timeout` and `test_long_computation_timeout`)
@@ -317,7 +315,7 @@ timeout implementation, which is not worth the complexity for edge-case timeout 
 - ✅ Turn system implemented ("4 actions per round")
 - 🔨 Phase 3: Testing, polish, balance
 - 📅 Phase 4: Persistence, advanced features
-- See: `MULTIPLAYER_PROGRESS.md` and `docs/design/MULTIPLAYER_DESIGN_2025.md`
+- See: `docs/design/MULTIPLAYER_DESIGN_2025.md` and `docs/PROJECT_REVIEW_2026-04-17.md`
 
 ---
 
@@ -413,7 +411,7 @@ python3 -m pytest tests/ -v
 4. **architecture/00_ARCHITECTURE_OVERVIEW.md** - System architecture (accurate)
 
 ### For Future Work:
-- **future-multiplayer/** - Phase 2 design (8-12 weeks out)
+- **design/MULTIPLAYER_DESIGN_2025.md** - Current MP design
 - **architecture/LUA_INTEGRATION_STRATEGY.md** - Phase 3 planning
 
 ---

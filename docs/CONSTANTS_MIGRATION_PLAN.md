@@ -161,7 +161,7 @@ from .constants import GOBLIN_HP, ..., MINING_MIN_TURNS, MINING_MAX_TURNS
 ### Step 7: Run tests ✅
 ```bash
 pytest tests/ -v
-# Expect: 1063 tests passing (no regressions)
+# Expect: suite passes (no regressions — baseline 1056 passing / 9 failing as of 2026-04-17)
 ```
 
 ### Step 8: Update documentation ✅
@@ -189,7 +189,7 @@ pytest tests/ -v
 ## Risks & Mitigation
 
 ### Risk 1: Breaking existing code
-**Mitigation**: Comprehensive test suite (1063 tests), step-by-step migration
+**Mitigation**: Comprehensive test suite (~1067 tests), step-by-step migration
 
 ### Risk 2: Performance regression (YAML access slower than constants)
 **Mitigation**: GameConfig caches parsed YAML, negligible impact
@@ -215,7 +215,7 @@ pytest tests/ -v
 - Verify HP regen uses config values
 
 ### Regression Tests
-- All 1063 existing tests must pass
+- All passing tests must continue to pass (baseline 1056 pass / 9 fail / 2 skip as of 2026-04-17)
 - No behavioral changes expected
 
 ---
@@ -239,7 +239,7 @@ pytest tests/ -v
 
 ✅ All imports from constants.py removed (except Enums)
 ✅ All numeric values now in game_constants.yaml
-✅ All 1063 tests passing (100%)
+✅ No new test regressions introduced by migration
 ✅ No duplicate values between constants.py and YAML
 ✅ Documentation updated to reflect YAML-first approach
 ✅ Clean commit with clear migration message

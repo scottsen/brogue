@@ -391,11 +391,12 @@ class GameSession:
             if player_info.entity_id and action.actor_id != player_info.entity_id:
                 return False, "Action actor does not match player entity"
 
-            # Execute action
+            # Execute action against a GameContext (not raw GameState)
             try:
-                outcome = action.execute(self.mp_game_state.game_state)
-                if not outcome.success:
-                    return False, outcome.message
+                context = GameContext(self.mp_game_state.game_state)
+                outcome = action.execute(context)
+                if not outcome.is_success:
+                    return False, "; ".join(outcome.messages) or "Action failed"
 
                 # Increment action counter
                 self.mp_game_state.increment_actions()
@@ -446,13 +447,15 @@ class GameSession:
             # Generate a defensive wait action for the disconnected player
             try:
                 wait_action = WaitAction(actor_id=player_info.entity_id)
-                outcome = wait_action.execute(self.mp_game_state.game_state)
+                context = GameContext(self.mp_game_state.game_state)
+                outcome = wait_action.execute(context)
 
-                if not outcome.success:
+                if not outcome.is_success:
+                    message = "; ".join(outcome.messages) or "AI wait action failed"
                     logger.warning(
-                        f"AI action for disconnected player {player_info.player_name} failed: {outcome.message}"
+                        f"AI action for disconnected player {player_info.player_name} failed: {message}"
                     )
-                    return False, outcome.message
+                    return False, message
 
                 # Increment action counter
                 self.mp_game_state.increment_actions()

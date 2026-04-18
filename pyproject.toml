@@ -36,6 +36,7 @@ dependencies = [
 dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
     "textual-dev>=1.0.0",
 ]
 
@@ -75,6 +76,7 @@ markers = [
     "fuzz: Fuzz/bot tests (automated gameplay)",
     "slow: Slow-running tests",
     "smoke: Smoke tests (basic functionality)",
+    "asyncio: Async tests (requires pytest-asyncio)",
 ]
 
 [tool.coverage.run]

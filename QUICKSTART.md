@@ -35,18 +35,23 @@ python3 run_textual.py
 ## 🎯 3. Play (3 minutes)
 
 ### Essential Controls
-- **Move:** Arrow keys or `hjkl` (vim-style)
+- **Move:** Arrow keys or `hjkl` (vim), diagonals `yubn`
 - **Attack:** Bump into monsters
-- **Mine:** `m` when standing on ore vein
-- **Craft:** `c` when standing at forge (yellow █)
-- **Descend:** `>` when standing on stairs down
+- **Mine:** Bump into an ore vein (no key — movement mines automatically)
+- **Survey ore:** `s` (scan nearby veins)
+- **Pickup:** `g` — **Inventory:** `i` — **Equip/wield:** `w`
+- **Look at ground:** `:`
+- **Wait/pass turn:** `.` or `space`
+- **Descend stairs:** `>`
+- **Chat (multiplayer):** `c` or `enter`
+- **Save/Load:** `S` / `L` — **Restart:** `r` — **Quit:** `q`
 
 ### Quick Tips
-1. **Start mining early** - Ore veins (shaded tiles) provide materials
-2. **Find forges** - Yellow █ symbols on the map
-3. **Craft weapons** - Better gear = easier combat
-4. **Legacy Vault** - When you die, rare ore is saved for next run
-5. **Experiment** - Try all 4 character classes (Warrior, Mage, Rogue, Healer)
+1. **Mining is bump-to-mine** — just walk into ore veins
+2. **Find forges** — yellow █ symbols on the map (crafting triggers contextually)
+3. **Craft weapons** — better gear = easier combat
+4. **Legacy Vault** — when you die, rare ore is saved for next run
+5. **Experiment** — try all 4 character classes (Warrior, Mage, Rogue, Healer)
 
 ---
 
