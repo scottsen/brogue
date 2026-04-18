@@ -12,8 +12,8 @@ This doc was rewritten as part of the 2026-04-17 trust-restore audit. For the fu
 
 The single-player roguelike is feature-complete and playable: mining, crafting, equipment, save/load, character classes, floor progression, Legacy Vault, Lua event system. Current test numbers:
 
-- **1056 tests passing / 9 failing / 2 skipped** (suite of 1067 — collection clean, run clean, no hangs).
-- The 9 remaining failures are all in async multiplayer server code (reconnection cleanup, websocket timeout), not single-player.
+- **1065 tests passing / 0 failing / 2 skipped** (suite of 1067 — collection clean, run clean, no hangs).
+- MP async-cleanup and lock-reentrancy bugs closed in commit 33d72f7.
 
 **Polish work in flight:**
 - Playtesting and balance tuning
@@ -25,8 +25,8 @@ The single-player roguelike is feature-complete and playable: mining, crafting, 
 
 Earlier docs claimed "Phase 2 complete (2+ player co-op working)". That overstated reality. As of 2026-04-17:
 
-- Core alignment between the MP server and the single-player action API was broken. `GameSession.process_action()` executed actions against a raw `GameState` instead of the `GameContext` the action API requires, the ActionOutcome API calls used old attribute names (`.success`/`.message` instead of `.is_success`/`.messages`), and the disconnected-player fallback imported a `WaitAction` module that did not exist. **Repaired in this session** — `WaitAction` added, `GameSession` switched to `GameContext`, API calls corrected.
-- After repair: server tests run clean (no hangs, 159/166 pass). 4 reconnection timeout-cleanup tests and 2 websocket-server timeout tests still fail — those are separate async bugs, not the MP contract issues.
+- Core alignment between the MP server and the single-player action API was broken. `GameSession.process_action()` executed actions against a raw `GameState` instead of the `GameContext` the action API requires, the ActionOutcome API calls used old attribute names, and the disconnected-player fallback imported a `WaitAction` module that did not exist. **Repaired in commit 0449d66.**
+- Subsequent pass (commit 33d72f7) fixed a non-reentrant-lock deadlock in `cleanup_expired_disconnections`, contradictory leave-game semantics, and two stale tests. **All MP server tests now pass (server suite: clean).**
 - Treat multiplayer as experimental until the remaining async tests are green and a 30+ min co-op session has been validated end-to-end.
 
 **For multiplayer design:** See `docs/design/MULTIPLAYER_DESIGN_2025.md`
@@ -128,13 +128,13 @@ def generate_dungeon():
 
 ### 📋 Implementation Status
 
-**Current State:** Single-player MVP is feature-complete and playable. Test suite: 1056 passing / 9 failing / 2 skipped (verified 2026-04-17). All 9 failures are in async multiplayer server code, not single-player. Multiplayer is experimental — see Track B above.
+**Current State:** Single-player MVP is feature-complete and playable. Test suite: 1065 passing / 0 failing / 2 skipped (verified 2026-04-17 after commit 33d72f7). Multiplayer server tests are now green; end-to-end playtest still pending.
 
 **What exists:**
 - ✅ Core game code (114+ Python files)
-- ✅ Test suite: 1056 passing (SP core clean)
+- ✅ Test suite: 1065 passing (full suite green)
 - ✅ Lua Event System
-- 🟡 Multiplayer: contract repaired 2026-04-17; 4 reconnection + 2 websocket-server async tests still failing
+- 🟡 Multiplayer: unit + integration tests pass; needs real two-client playtest
 
 **What's been built (MVP Phase 1 - COMPLETE):**
 - ✅ Core Game Loop: Turn-based movement and combat

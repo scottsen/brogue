@@ -113,7 +113,7 @@
 | Looking for... | Location |
 |----------------|----------|
 | **Game code** | `src/core/` |
-| **Tests** | `tests/` (1056 passing / 9 failing / 2 skipped) |
+| **Tests** | `tests/` (1065 passing / 0 failing / 2 skipped) |
 | **Data files** | `data/balance/`, `data/entities/` |
 | **Lua scripts** | `scripts/actions/`, `scripts/events/`, `scripts/ai/` |
 | **Documentation** | `docs/` (you are here) |

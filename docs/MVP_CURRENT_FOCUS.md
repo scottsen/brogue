@@ -3,7 +3,7 @@
 **Status:** Single-player MVP feature-complete; multiplayer experimental (see `PROJECT_REVIEW_2026-04-17.md`)
 **Phase:** Trust-restore + MP stabilization + Polish
 **Last Updated:** 2026-04-17
-**Test Status:** 1067 collected, 1056 passing / 9 failing / 2 skipped (all failures in async MP server code)
+**Test Status:** 1067 collected, 1065 passing / 0 failing / 2 skipped
 
 ---
 
@@ -33,7 +33,7 @@ The single-player MVP is **feature-complete** with all core systems working:
 12. ✅ **Legacy Vault System** - Meta-progression (DONE - 47 tests passing)
 13. ✅ **Lua Event System** - Phase 3 complete (event handlers, achievements, quests)
 
-**Test Evidence (2026-04-17):** 1067 collected, 1056 passing / 9 failing / 2 skipped (all failures in async MP server code)
+**Test Evidence (2026-04-17):** 1067 collected, 1065 passing / 0 failing / 2 skipped
 
 ---
 
@@ -145,8 +145,8 @@ python3 run_textual.py
 
 #### 2. Test Suite Status ✅ RESOLVED
 **Current Status:**
-- 1056 passing
-- 9 failing (all in async MP server code: reconnection cleanup + websocket timeout)
+- 1065 passing
+- 0 failing (MP async-cleanup + lock deadlock bugs fixed in commit 33d72f7)
 - 2 correctly skipped (Lua timeout tests — C-level execution limitation)
 - ✅ All functional tests passing
 

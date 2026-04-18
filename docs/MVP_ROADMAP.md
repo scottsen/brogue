@@ -46,7 +46,7 @@
 | **Loot** | ✅ Complete | 3 | `src/core/loot.py` |
 | **Legacy Vault** | ✅ Complete | 47 | `src/core/legacy.py` |
 
-**Total (verified 2026-04-17):** 1056 passing / 9 failing / 2 skipped. All 9 failures are in async multiplayer server code (reconnection cleanup + websocket timeout); single-player is clean.
+**Total (verified 2026-04-17):** 1065 passing / 0 failing / 2 skipped. MP async-cleanup and lock-reentrancy bugs fixed in commit 33d72f7.
 
 **Deliverable:** Complete single-player game with all MVP systems ✅
 
@@ -104,7 +104,7 @@
 - [x] Character classes with progression
 - [x] Floor descent with difficulty scaling
 - [x] Meta-progression (Legacy Vault)
-- [x] 1056 tests passing / 9 failing / 2 skipped (verified 2026-04-17; failures are MP async only)
+- [x] 1065 tests passing / 0 failing / 2 skipped (verified 2026-04-17 after commit 33d72f7)
 - [x] Game is fully playable
 
 ### ✅ Phase 2 Multiplayer Complete (Achieved - 2025-11-14!)

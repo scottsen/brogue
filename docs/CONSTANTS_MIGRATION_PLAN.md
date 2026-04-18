@@ -161,7 +161,7 @@ from .constants import GOBLIN_HP, ..., MINING_MIN_TURNS, MINING_MAX_TURNS
 ### Step 7: Run tests ✅
 ```bash
 pytest tests/ -v
-# Expect: suite passes (no regressions — baseline 1056 passing / 9 failing as of 2026-04-17)
+# Expect: suite passes (no regressions — baseline 1065 passing / 0 failing / 2 skipped as of 2026-04-17)
 ```
 
 ### Step 8: Update documentation ✅
@@ -215,7 +215,7 @@ pytest tests/ -v
 - Verify HP regen uses config values
 
 ### Regression Tests
-- All passing tests must continue to pass (baseline 1056 pass / 9 fail / 2 skip as of 2026-04-17)
+- All passing tests must continue to pass (baseline 1065 pass / 0 fail / 2 skip as of 2026-04-17)
 - No behavioral changes expected
 
 ---

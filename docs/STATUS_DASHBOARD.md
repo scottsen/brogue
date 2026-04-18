@@ -9,11 +9,11 @@
 
 | Category | Status | Details |
 |----------|--------|---------|
-| **Single-Player core** | 🟢 Mostly healthy | ~800/802 unit tests pass; 2 test-drift failures in `test_action_factory.py` (new 8th action not added to expectations) |
-| **Multiplayer** | 🔴 Experimental / broken | 7+ server test failures; reconnection/websocket_server tests hang. `GameSession` runs against raw `GameState` (should be `GameContext`); missing `WaitAction` module. |
-| **Test Health** | 🟡 Partial | 1063 collected. SP ~800 pass / 2 fail. MP ~95 pass / 7 fail plus hangs in reconnection & websocket_server. Not 100%. |
-| **Current Phase** | 🛠️ Restore trust | Fix stale docs, repair MP correctness, then resume feature work |
-| **Playability** | ✅ SP playable / ❌ MP not recommended | |
+| **Single-Player core** | 🟢 Healthy | All tests pass; action factory drift fixed (0449d66) |
+| **Multiplayer** | 🟡 Server tests green, playtest pending | `WaitAction` created, `GameSession` uses `GameContext`, lock-reentrancy deadlock fixed, leave-game semantics unified (0449d66 + 33d72f7). No real two-client playtest yet. |
+| **Test Health** | ✅ Green | 1067 collected: 1065 passing / 0 failing / 2 skipped (verified 2026-04-17 after commit 33d72f7) |
+| **Current Phase** | 🎮 MP playtest + polish | Run real two-client session to validate end-to-end; continue SP polish |
+| **Playability** | ✅ SP playable / 🟡 MP ready for playtest | |
 
 See `docs/PROJECT_REVIEW_2026-04-17.md` for full evidence.
 

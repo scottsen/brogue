@@ -16,7 +16,7 @@ A terminal roguelike (NetHack-style) in Python with:
 - **Lua scripting** — event-driven modding (`src/scripting/`)
 - **YAML-driven content** — recipes, monsters, ores
 
-**Verified test state (2026-04-17):** 1056 passing / 9 failing / 2 skipped. Remaining failures are async-cleanup timeouts in reconnection/websocket tests.
+**Verified test state (2026-04-17):** 1065 passing / 0 failing / 2 skipped (after commit 33d72f7 closed async-cleanup and lock-reentrancy bugs).
 
 ## Key Subsystems
 

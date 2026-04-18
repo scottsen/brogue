@@ -82,7 +82,7 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 **Full documentation hub:** [docs/README.md](docs/README.md)
 
 **Quick lookup:**
-- [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) - What's implemented (858/860 tests ✅)
+- [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) - What's implemented (1065/1067 tests ✅)
 - [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md) - What's next
 - [docs/INDEX.md](docs/INDEX.md) - Complete documentation index
 
@@ -117,10 +117,11 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 - Centralized formula system (damage, mining, crafting balance)
 - Bot equipment intelligence (stat-based upgrade detection)
 
-**📊 Project Health (status honest as of 2026-04-17):**
-- **Single-player core**: ~800/802 unit tests passing; 2 test-drift failures in `test_action_factory.py` (expected 7 actions, registry now has 8)
-- **Multiplayer**: materially broken — 7+ server test failures, additional hangs in reconnection/websocket_server tests. Phase 2 should be treated as experimental, not complete. See `docs/PROJECT_REVIEW_2026-04-17.md`
-- **5 of 5 architectural improvements complete** (single-player)
+**📊 Project Health (verified 2026-04-17):**
+- **Test suite**: 1065 passing / 0 failing / 2 skipped in ~25s (Lua signal-timeout skips are expected)
+- **Single-player**: all tests pass; playable end-to-end
+- **Multiplayer**: server unit + integration tests pass (commits 0449d66 + 33d72f7 closed MP contract, lock deadlock, and leave-game semantics). Needs real two-client playtest.
+- **5 of 5 architectural improvements complete**
 - **Lua-ready architecture** (5/5 extensibility score)
 
 **✅ Legacy Vault System (Complete):**
@@ -130,14 +131,13 @@ Both paths are valid! Use the vault to learn or overcome bad luck.
 
 **See:** [`docs/MVP_ROADMAP.md`](docs/MVP_ROADMAP.md)
 
-### 🚀 Phase 2: Multiplayer (Experimental — not Complete)
+### 🚀 Phase 2: Multiplayer (Server green, playtest pending)
 
-Prior doc claimed "Phase 2 complete (2+ player co-op working!)". Current code does not support that claim:
-- `GameSession.process_action()` executes actions against a raw `GameState` instead of the `GameContext` the action API requires (`src/server/game_session.py:396`)
-- The disconnected-player fallback imports `core.actions.wait_action.WaitAction`, which does not exist (`src/server/game_session.py:444`)
-- Multiple async server tests fail or hang
+Prior doc claimed "Phase 2 complete (2+ player co-op working!)"; a 2026-04-17 audit found that was false. Repaired across two commits:
+- **0449d66** — created missing `WaitAction` module, switched `GameSession` to operate on `GameContext` (not raw `GameState`), corrected `ActionOutcome` attribute names (`.is_success` / `.messages`), fixed test-drift in action factory
+- **33d72f7** — fixed non-reentrant-lock deadlock in `cleanup_expired_disconnections`, unified `handle_leave_game` semantics (preserve player record, clean up manager mapping), corrected stale `Session.last_activity` → `last_seen`, fixed auth-timeout test race
 
-Treat multiplayer as experimental until those are repaired and the server test suite is green.
+Full test suite is now green. End-to-end real two-client playtest is the next validation step.
 
 **See:** [`docs/design/MULTIPLAYER_DESIGN_2025.md`](docs/design/MULTIPLAYER_DESIGN_2025.md) and [`docs/PROJECT_REVIEW_2026-04-17.md`](docs/PROJECT_REVIEW_2026-04-17.md)
 
@@ -342,14 +342,15 @@ tia session search "veinborn"
 
 ## Recent Development Activity
 
-### November 2025: Multiplayer Phase 2 Complete! 🎉
+### November 2025: Multiplayer Phase 2 merged (see caveat below)
 
-**Major Achievement (Nov 14, 2025):**
-- ✅ **Multiplayer Phase 2 COMPLETE** - 2+ player co-op is fully functional!
-- ✅ **WebSocket infrastructure** - 11 new files, ~2,400 lines of code
-- ✅ **Turn system implemented** - "4 actions per round, anyone can take them"
-- ✅ **Monster AI integration** - Monsters act after player rounds, target nearest player
-- ✅ **Shared dungeon** - Distributed player spawning across different rooms
+**What landed (Nov 14, 2025):**
+- WebSocket infrastructure - 11 new files, ~2,400 lines of code
+- Turn system - "4 actions per round, anyone can take them"
+- Monster AI integration - Monsters act after player rounds, target nearest player
+- Shared dungeon - Distributed player spawning across different rooms
+
+**Caveat:** These PRs described the feature as "COMPLETE ✅" but a 2026-04-17 audit found the server layer was broken (missing `WaitAction`, action API mismatch, lock deadlocks). Repaired in commits 0449d66 + 33d72f7; real two-client playtest still pending.
 
 **5 Major PRs Merged (Nov 2025):**
 - **PR #29** - Documentation updates (reflect Phase 2 completion)
@@ -360,10 +361,9 @@ tia session search "veinborn"
 
 **Impact:**
 - +2,400 lines of multiplayer code
-- +200 tests (858/860 passing, 99.8%)
+- +200 tests added at the time
 - 11 new server files (WebSocket, auth, game session, state)
-- Architecture quality: **4.8/5** (Excellent)
-- Multiplayer Phase 2: **COMPLETE** ✅
+- Current test suite: 1065 passing / 0 failing / 2 skipped (post-repair, 2026-04-17)
 
 **Next:** Phase 3 testing + single-player polish (dual-track development)
 

@@ -379,7 +379,7 @@ context.register_system('custom_system', my_system)
 
 ## Current State (2026-04-17)
 
-**Test Coverage**: 1067 tests collected; 1056 passing / 9 failing / 2 skipped (all failures in async MP server code)
+**Test Coverage**: 1067 tests collected; 1065 passing / 0 failing / 2 skipped (verified after commit 33d72f7)
 
 **Code Quality**:
 - Complexity violations resolved (Phase 1-3 refactoring)
