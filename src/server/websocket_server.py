@@ -320,11 +320,9 @@ class VeinbornServer:
             await self.send_error(session_id, "Game not found")
             return
 
-        # Mark player as having left (not just disconnected)
-        await game.leave_player(session.player_id)
-
-        # Remove from game manager
-        success, error = await self.game_manager.leave_game(session.player_id)
+        # Mark player as having left (preserves record in game.players,
+        # cleans up manager's player→game mapping)
+        success, error = await self.game_manager.mark_player_left(session.player_id)
 
         if success:
             session.game_id = None

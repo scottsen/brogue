@@ -74,14 +74,15 @@ async def test_authenticate_connection_timeout():
     server = VeinbornServer()
     ws = AsyncMock()
 
-    # Mock timeout
+    # Mock timeout — sleep longer than server's connection_timeout
     async def timeout_recv():
-        await asyncio.sleep(10)
+        await asyncio.sleep(5)
         return ""
 
     ws.recv = timeout_recv
 
-    session_id = await server.authenticate_connection(ws)
+    with patch("server.websocket_server.config.connection_timeout", 0.1):
+        session_id = await server.authenticate_connection(ws)
 
     assert session_id is None
 
@@ -184,7 +185,7 @@ async def test_handle_message_updates_activity():
 
     # Create session
     token, session = server.auth_manager.create_session("TestPlayer")
-    original_timestamp = session.last_activity
+    original_timestamp = session.last_seen
 
     # Wait a bit
     await asyncio.sleep(0.01)
@@ -203,7 +204,7 @@ async def test_handle_message_updates_activity():
 
     # Verify activity was updated
     updated_session = server.auth_manager.get_session(session.session_id)
-    assert updated_session.last_activity > original_timestamp
+    assert updated_session.last_seen > original_timestamp
 
 
 @pytest.mark.asyncio

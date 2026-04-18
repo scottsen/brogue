@@ -154,9 +154,9 @@ async def test_remove_nonexistent_player():
 async def test_remove_last_player_finishes_game():
     """Test removing last player marks game as finished."""
     game = GameSession("game1", "Test Game", max_players=4)
-    game.is_started = True
 
     await game.add_player("player1", "Alice", "warrior")
+    game.is_started = True
     await game.remove_player("player1")
 
     assert game.is_finished

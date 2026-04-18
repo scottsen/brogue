@@ -167,22 +167,26 @@ class GameSession:
             True if player was removed, False otherwise
         """
         async with self._lock:
-            if player_id not in self.players:
-                return False
+            return self._remove_player_locked(player_id)
 
-            del self.players[player_id]
-            if player_id in self.player_order:
-                self.player_order.remove(player_id)
+    def _remove_player_locked(self, player_id: str) -> bool:
+        """Remove a player — caller must already hold self._lock."""
+        if player_id not in self.players:
+            return False
 
-            # If game is running and no connected/disconnected players left, mark as finished
-            connected_count = sum(
-                1 for p in self.players.values()
-                if not p.has_left()
-            )
-            if self.is_started and connected_count == 0:
-                self.is_finished = True
+        del self.players[player_id]
+        if player_id in self.player_order:
+            self.player_order.remove(player_id)
 
-            return True
+        # If game is running and no connected/disconnected players left, mark as finished
+        connected_count = sum(
+            1 for p in self.players.values()
+            if not p.has_left()
+        )
+        if self.is_started and connected_count == 0:
+            self.is_finished = True
+
+        return True
 
     async def disconnect_player(self, player_id: str) -> bool:
         """Mark a player as disconnected but keep them in the game.
@@ -286,8 +290,8 @@ class GameSession:
                         f"Removing player {player_info.player_name} from game {self.game_id} "
                         f"due to reconnection timeout"
                     )
-                    await self.remove_player(player_id)
-                    removed_players.append(player_id)
+                    if self._remove_player_locked(player_id):
+                        removed_players.append(player_id)
 
         return removed_players
 
@@ -686,6 +690,38 @@ class GameSessionManager:
                 return True, None
             else:
                 return False, "Failed to leave game"
+
+    async def mark_player_left(self, player_id: str) -> tuple[bool, Optional[str]]:
+        """Mark a player as having left their game (preserving the record).
+
+        Unlike leave_game, this keeps the player in game.players with
+        has_left() == True so the game can still track who participated.
+        Cleans up the player→game mapping so the player can join a new game.
+        Cleans up empty games (no connected or disconnected players remain).
+        """
+        async with self._lock:
+            game_id = self._player_to_game.get(player_id)
+            if not game_id:
+                return False, "Player not in any game"
+
+            game = self._games.get(game_id)
+            if not game:
+                return False, "Game not found"
+
+            success = await game.leave_player(player_id)
+            if not success:
+                return False, "Failed to leave game"
+
+            del self._player_to_game[player_id]
+
+            # Clean up game only if everyone has left (not just disconnected)
+            remaining = sum(
+                1 for p in game.players.values() if not p.has_left()
+            )
+            if remaining == 0:
+                del self._games[game_id]
+
+            return True, None
 
     async def get_player_game(self, player_id: str) -> Optional[GameSession]:
         """Get the game a player is currently in.

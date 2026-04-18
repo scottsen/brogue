@@ -284,9 +284,9 @@ async def test_leave_player():
 async def test_leave_player_triggers_game_finish():
     """Test game finishes when all players leave."""
     game = GameSession("game1", "Test Game", max_players=4)
-    game.is_started = True
 
     await game.add_player("player1", "Alice", "warrior")
+    game.is_started = True
 
     await game.leave_player("player1")
 
